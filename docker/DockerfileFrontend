@@ -1,0 +1,9 @@
+FROM node:11-alpine as build
+
+EXPOSE 3000
+
+ADD ./frontend /src/
+
+WORKDIR /src
+
+RUN npm i
