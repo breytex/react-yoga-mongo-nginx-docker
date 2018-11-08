@@ -25,21 +25,23 @@ $ cd react-yoga-mongo-nginx-docker
 # downloads docker images and installs npm packages inside all containers
 $ docker-compose build 
 
-# install only dev packages locally to enable lint and package autocompletion
+# seed testdata into mongodb
+# fails sometimes (because mongodb is not up yet). Just try a second time.
+$ cd ../
+$ docker-compose run --rm backend npm run seed
+
+$ docker-compose up    
+
+# optional:
+
+# install packages locally to enable lint and package autocompletion
 $ cd frontend 
 $ npm install   
 
 # ... same for backend                            
 $ cd ../backend
 $ npm install           
-
-# seed testdata into mongodb
-# fails sometimes (because mongodb is not up yet). Just try a second time.
-$ cd ../
-$ docker-compose run --rm backend npm run seed
-
-# almost done
-$ docker-compose up                              
+                
 ```
 
 Open [localdev.net](localdev.net) in your browser :)
@@ -47,6 +49,15 @@ You should see a spinning react logo and some foo bar testdata on the screen.
 (If you don't see the testdata, run the seed command from above or check console outputs for database problems)
 
 Happy coding!
+
+# Development
+More useful commands:
+```
+# install package inside the docker containers
+docker-compose run --rm frontend npm install --save package-name
+docker-compose run --rm backend npm install --save package-name
+# (remember that node_modules folders locally and inside the containers are disconnected)
+```
 
 # Random tips
 * work on the mongodb schema at `backend/db/models/*`

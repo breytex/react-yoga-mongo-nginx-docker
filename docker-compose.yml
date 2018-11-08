@@ -12,7 +12,7 @@ services:
       - NODE_ENV=development
     volumes:
       - ./frontend:/src
-      - /src/node_modules
+      - frontendmodules:/src/node_modules
     ports:
       - "3000:3000"
     links:
@@ -35,7 +35,7 @@ services:
     volumes:
       - ./backend:/src
       - ./data/log:/var/log:rw
-      - /src/node_modules
+      - backendmodules:/src/node_modules
     links:
       - mongo
     depends_on:
@@ -72,3 +72,7 @@ services:
       MONGODB_DATABASE: graphqlYoga
     volumes:
       - './data/mongo:/data/db'
+
+volumes:
+  frontendmodules:
+  backendmodules:
